@@ -1,7 +1,21 @@
+"use client";
 import Image from 'next/image'
 import Link from 'next/link'
+import Modal from '../../../components/modal'
+
+import { useState } from 'react'
 
 export default function Registration() {
+
+  const [ showModal, setShowModal ] = useState(false)
+
+  const handlerModalButton = () => {
+    setShowModal(false)
+  }
+
+  const handlerRegistration = () => {
+    setShowModal(true)
+  }
 
   return (
     <div className='flex h-screen w-full bg-white md:bg-slate-50 dark:bg-slate-800 md:dark:bg-slate-900 items-center justify-center md:p-5'>
@@ -33,7 +47,7 @@ export default function Registration() {
               <input type="email" name="email" placeholder='example@gmail.com' className='bg-slate-100 dark:bg-slate-700 text-black dark:text-white rounded-md py-2 px-4 '></input>
               <input type="password" name="password" placeholder='Пароль' className='bg-slate-100 dark:bg-slate-700 text-black dark:text-white rounded-md py-2 px-4 '></input>
 
-              <button type='submit' className='scale-100 hover:scale-105 hover:shadow-lg ease-in-out/
+              <button type='button' onClick={handlerRegistration} className='scale-100 w-full hover:scale-105 hover:shadow-lg ease-in-out/
               duration-300 py-3 px-4 text-lg text-white dark:from-purple-500 dark:from-0% /
               dark:via-cyan-600 dark:via-30% dark:via-blue-500 dark:via-60% dark:to-violet-700 dark:to-100% bg-gradient-to-r /
               from-amber-500 from-0% via-orange-600 via-30% via-pink-500 via-60% to-fuchsia-700 to-100% mt-4 rounded-md py-2 px-4'>Зарегистрироваться</button>          
@@ -41,7 +55,7 @@ export default function Registration() {
             <div className='flex justify-center mt-6 w-full border-b-2 border-slate-300 dark:border-indigo-500'>
               <span className='bg-white dark:bg-slate-800 p-2 -mb-[20px]'>OR</span>
             </div>
-            <button type='submit' className='flex w-full px-2 py-3 rounded-md justify-center items-center gap-2 mt-8 border border-blue-500 text-blue-500'>
+            <button type='submit' className='flex w-full hover:animate-pulse px-2 py-3 rounded-md justify-center items-center gap-2 mt-8 border border-blue-500 text-blue-500'>
               <Image
                   src="/images/google.svg"
                   alt="google"
@@ -52,13 +66,26 @@ export default function Registration() {
                 />Войти через Google  
             </button>
             <div className='flex justify-center'>
-              <Link href='/auth/login' className='flex mt-6 text-blue-500 italic underline decoration-solid'>Есть аккаунт? Войти</Link>
-            </div>
-            
-            {/* <a href='/auth/login' className='flex mt-6 text-blue-500 italic'>Есть аккаунт? Войти</a> */}
+              <Link href='/auth/login' className='flex justify-center text-base mt-4 text-blue-500 italic underline decoration-solid'>Есть аккаунт? Войти</Link>
+            </div>      
           </div>
         </div>
       </div>
+      {
+        showModal ?  
+          <Modal>
+            <div className='text-center'>
+              <h2 className='font-bold'>Подтверждение регистрации</h2>
+              <p className='mt-2 text-slate-500 dark:text-slate-300 text-sm'>
+                На вашу почту было отправлено письмо с подтверждением о регистрации учетной записи.<br/>
+                Перейдите по ссылке указанной в письме.
+              </p>
+              <button type='button' onClick={handlerModalButton} className='py-2 px-4 bg-green-500 rounded-md text-white hover:animate-pulse mt-3'>Ok</button>
+            </div>
+          </Modal>
+      :
+        ''
+      }
     </div>
   )
 }

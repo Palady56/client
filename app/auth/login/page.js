@@ -39,7 +39,7 @@ export default function Registration() {
             <div className='flex justify-center mt-6 w-full border-b-2 border-slate-300 dark:border-indigo-500'>
               <span className='bg-white dark:bg-slate-800 p-2 -mb-[20px]'>OR</span>
             </div>
-            <button type='submit' className='flex w-full px-2 py-3 rounded-md justify-center items-center gap-2 mt-8 border border-blue-500 text-blue-500'>
+            <button type='submit' className='flex w-full hover:animate-pulse px-2 py-3 rounded-md justify-center items-center gap-2 mt-8 border border-blue-500 text-blue-500'>
               <Image
                   src="/images/google.svg"
                   alt="google"
@@ -50,8 +50,10 @@ export default function Registration() {
                 />Войти через Google  
             </button>
             <div className='flex justify-center'>
-              <Link href='/auth/login' className='flex mt-6 text-blue-500 italic underline decoration-solid hover:text-blue-700 dark:hover:text-blue-400'>Нет аккаунта? Зарегистрироваться</Link>
+              <Link href='/auth/changepassword' className='flex text-base mt-4 text-blue-500 italic underline decoration-solid'>Забыли пароль?</Link>
             </div>
+            <div className='mx-auto mt-6 border-b-2 mt-4 border-slate-300 dark:border-indigo-500 max-w-[70px]'></div>
+            <Link href='/auth/registration' className='flex justify-center text-base mt-4 text-blue-500 italic underline decoration-solid'>Зарегистрироваться</Link>
           </div>
         </div>
       </div>
