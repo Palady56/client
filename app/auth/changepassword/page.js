@@ -10,25 +10,16 @@ export default function Changepassword() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState(false);
-
-<<<<<<< HEAD
-=======
-    // if (newPassword !== confirmPassword) {
-    //     return(console.log(alert("Пароли совпадают")))
-    // }
-
->>>>>>> 5f247e566340d4c89a90bcd0d3c594d1775fe04c
+    
     const handleSubmit = () => {
 
         setError('');
         setSuccessMessage('');
     
         if (newPassword !== confirmPassword) {
-<<<<<<< HEAD
+
           setError(alert('Пароли не совпадают'));
-=======
           setError('Пароли не совпадают');
->>>>>>> 5f247e566340d4c89a90bcd0d3c594d1775fe04c
           return;
         }
 
@@ -86,8 +77,6 @@ export default function Changepassword() {
       </div>
     </div>
   )
-<<<<<<< HEAD
+ }
 }
-=======
-}
->>>>>>> 5f247e566340d4c89a90bcd0d3c594d1775fe04c
+
