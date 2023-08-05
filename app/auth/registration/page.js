@@ -9,6 +9,10 @@ export default function Registration() {
 
   const [ showModal, setShowModal ] = useState(false)
 
+  const closeModal = () => {
+    setShowModal(false)
+  }
+
   const handlerModalButton = () => {
     setShowModal(false)
   }
@@ -73,14 +77,14 @@ export default function Registration() {
       </div>
       {
         showModal ?  
-          <Modal>
+          <Modal onClose={closeModal}>
             <div className='text-center'>
               <h2 className='font-bold'>Подтверждение регистрации</h2>
               <p className='mt-2 text-slate-500 dark:text-slate-300 text-sm'>
                 На вашу почту было отправлено письмо с подтверждением о регистрации учетной записи.<br/>
                 Перейдите по ссылке указанной в письме.
               </p>
-              <button type='button' onClick={handlerModalButton} className='py-2 px-4 bg-green-500 rounded-md text-white hover:animate-pulse mt-3'>Ok</button>
+              <button type='button' onClick={handlerModalButton} className='py-2 px-4 bg-green-500 rounded-md text-white hover:animate-pulse mt-4'>Ok</button>
             </div>
           </Modal>
       :

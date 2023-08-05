@@ -1,6 +1,7 @@
 "use client";
 import Image from 'next/image'
 import Link from 'next/link'
+import Modal from '../../../components/modal';
 
 import { useState } from 'react'
 
@@ -9,27 +10,34 @@ export default function Changepassword() {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState(false);
+    const [successModal, setSuccessModal] = useState(false);
     
     const handleSubmit = () => {
 
-        setError('');
-        setSuccessMessage('');
-    
-        if (newPassword !== confirmPassword) {
+      setSuccessModal(true)
 
-          setError(alert('Пароли не совпадают'));
-          setError('Пароли не совпадают');
-          return;
-        }
+      setError('');
+      // setSuccessModal('');
+  
+      if (newPassword !== confirmPassword) {
 
-        const response = { success: true, message: 'Пароль изменен' }; 
+        setError(alert('Пароли не совпадают'));
+        setError('Пароли не совпадают');
+        return;
+      }
 
-        if (response.success) {
-        setSuccessMessage(response.message);
-        } else {
-        setError(response.message);
-        }
+      const response = { success: true, message: 'Пароль изменен' }; 
+
+      // if (response.success) {
+      // setSuccessModal(response.message);
+      // } else {
+      // setError(response.message);
+      // }
+        
+    }
+
+    const handlerModalButton = () => {
+      setSuccessModal(false)
     }
     
 
@@ -75,8 +83,21 @@ export default function Changepassword() {
           </div>
         </div>
       </div>
+      {
+        successModal ?  
+          <Modal onClose={handlerModalButton}>
+            <div className='text-center'>
+              <h2 className='font-bold'>Смена пароля прошла успешно!</h2>
+              <p className='mt-2 text-slate-500 dark:text-slate-300 text-sm'>
+                Вы изменили пароль в вашей учетной записи!
+              </p>
+              <button type='button' onClick={handlerModalButton} className='py-2 px-4 bg-green-500 rounded-md text-white hover:animate-pulse mt-4'>Ok</button>
+            </div>
+          </Modal>
+      :
+        ''
+      }
     </div>
   )
- }
 }
 
