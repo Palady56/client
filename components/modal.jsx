@@ -1,9 +1,9 @@
 import Image from 'next/image'
 
-export default function Modal({children}) {
+export default function Modal({children, onClose}) {
   return (
-    <div className='bg-[#0000002d] backdrop-blur-sm p-12 absolute top-0 right-0 bottom-0 left-0 flex justify-center items-center'>
-        <div className='bg-white dark:bg-slate-700 p-8 m-auto rounded-lg inline'>
+    <div className='bg-[#0000002d] backdrop-blur-sm p-12 absolute top-0 right-0 bottom-0 left-0 flex justify-center items-center' onClick={onClose}>
+        <div className='bg-white dark:bg-slate-700 px-8 py-6 m-auto rounded-lg inline' onClick={(e) => e.stopPropagation()}>
             <div className='flex items-center gap-2 justify-center'>
                 <Image
                     src="/images/logo.svg"
