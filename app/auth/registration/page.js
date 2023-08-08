@@ -10,12 +10,17 @@ export default function Registration() {
 
   const [ showModal, setShowModal ] = useState(false)
 
+<<<<<<< HEAD
   const router = useRouter()
 
   const closeModal = () => {
     setShowModal(false)
     router.push('/auth/login')
     redirect('/auth/login')
+=======
+  const closeModal = () => {
+    setShowModal(false)
+>>>>>>> 9485cd92338ef05687ee8404dfd4ba16122aebd1
   }
 
   const handlerModalButton = () => {
