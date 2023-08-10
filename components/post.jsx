@@ -1,49 +1,52 @@
+'use client';
 import Image from 'next/image'
-import moment from 'moment'
+import PostImage from './postImage';
 
 export default function Post({ post }) {
 
-    function getFormattedDate(post)
-    {
-        let formate = new Date(post.createdAt),
-            date = formate.getUTCDate(),
-            hour = formate.getHours(),
-            month = "January,February,March,April,May,June,July,August,October,November,December"
-            .split(",")[formate.getUTCMonth()];
-
-
-        function graduation(d) {
-            if(d > 3 && d < 21) return 'th'; 
-            switch (d % 10) {
-                case 1:  return "st";
-                case 2:  return "nd";
-                case 3:  return "rd";
-                default: return "th";
-            }
-        }
-
-        return month + " " + date + graduation(date) + " at " + (hour < 12 ? hour + "am" : (hour - 12) + "pm");   
-    }
-    
     const postCreatedAt = new Date(post.createdAt)
-
+    const postTimestamp = postCreatedAt.getTime()
     const timeNow = new Date().getTime()
 
-    const diff = timeNow - postCreatedAt.getTime()
+    const diff = (timeNow - postTimestamp) / 1000;
 
-    console.log(postCreatedAt);
-    console.log(Math.round(diff / (1000 * 60 * 60 * 24)));
-    console.log(getFormattedDate(post));
+    let resultTimeString = ''
 
-    // const ddd = moment(post.created).fromNow()
-    // console.log(ddd);
+    if (diff < 60) {
+        resultTimeString = 'Только что'
+    } else if (diff >= 60 && diff < 3600) {
+        resultTimeString = `${Math.round(diff / 60)} мин. назад`
+    } else if (diff >= 3600 && diff < 86400) {
+        resultTimeString = `${Math.round(diff / 3600)} ч. назад`
+    } else if (diff >= 3600 && diff < 259200) {
+        let temp = Math.round(diff / 86400)
+        resultTimeString = temp === 1 ? `${temp} день назад` : `${temp} дня назад`
+    } else {
+        let year = postCreatedAt.getFullYear()
+        let day = postCreatedAt.getDay()
+        if (day > 0 && day < 10) {
+            day = `0${day}`
+        }
+        let hour = postCreatedAt.getHours()
+        let minute = postCreatedAt.getMinutes()
+        let month = "янв,фев,мар,апр,май,июн,июл,авг,сен,окт,ноя,дек"
+        .split(",")[postCreatedAt.getUTCMonth()];
 
+        resultTimeString = `${year}-${month}-${day} ${hour}:${minute}`
+    }
+    
+    console.log(resultTimeString);
+
+    if (post.images.length > 1) {
+        return console.log(post.images.length);
+    }
     
   return (
     <div className='' >
-     
-           
+        <PostImage images={post.images}/>
     </div>
   )
 }
 
+
+  

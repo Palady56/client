@@ -1,5 +1,5 @@
 "use client";
-import Post from '../../components/post'
+import Post from '../../components/post';
 
 export default function Flow() {
   const post = {
@@ -22,7 +22,6 @@ export default function Flow() {
   return (
     <div className=''>
       <Post post={post}/>
-      Page gresgp
     </div>
   )
 }
