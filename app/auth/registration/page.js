@@ -10,17 +10,12 @@ export default function Registration() {
 
   const [ showModal, setShowModal ] = useState(false)
 
-<<<<<<< HEAD
   const router = useRouter()
 
   const closeModal = () => {
     setShowModal(false)
     router.push('/auth/login')
     redirect('/auth/login')
-=======
-  const closeModal = () => {
-    setShowModal(false)
->>>>>>> 9485cd92338ef05687ee8404dfd4ba16122aebd1
   }
 
   const handlerModalButton = () => {
@@ -32,8 +27,6 @@ export default function Registration() {
   const handlerRegistration = () => {
     setShowModal(true)
   }
-
-  
 
   return (
     <div className='flex h-screen w-full bg-white md:bg-slate-50 dark:bg-slate-800 md:dark:bg-slate-900 items-center justify-center md:p-5'>

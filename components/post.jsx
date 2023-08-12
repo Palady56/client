@@ -34,16 +34,37 @@ export default function Post({ post }) {
 
         resultTimeString = `${year}-${month}-${day} ${hour}:${minute}`
     }
-    
-    console.log(resultTimeString);
 
     if (post.images.length > 1) {
-        return console.log(post.images.length);
+
+    }
+
+    const imageStyle = {
+        borderRadius: '50%',
+        border: '1px solid #7c3aed',
+        objectPostition: 'center',
+        objectFit: 'cover'
+    }
+
+    const imageLoader = ({ src, width, quality }) => {
+        return `${src}`
     }
     
   return (
-    <div className='' >
-        <PostImage images={post.images}/>
+    <div className='w-full h-full' >
+        <div className='h-4/5 overflow-hidden'>
+            <PostImage images={post.images}/>
+        </div>
+        
+        <div className='flex items-center justify-between p-2 border-b dark:border-indigo-500 border-slate-100 dark:border-opacity-50'>
+            <div className='flex items-center gap-2 '>
+                <Image className='' src={post.user.avatar} loader={imageLoader} style={imageStyle} width={42} height={42} alt='Avatar'></Image>
+                <span className=''>{post.user.firstName}</span>
+                <hr className='dark:bg-indigo-500 bg-slate-100'/>
+            </div>
+            
+            <span className='text-sm'>{resultTimeString}</span>
+        </div>
     </div>
   )
 }
