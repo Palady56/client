@@ -1,16 +1,34 @@
 'use client';
 import Image from 'next/image'
-import PostImage from './postImage';
+import PostImage from './postImage'
 
 export default function Post({ post }) {
 
-    const postCreatedAt = new Date(post.createdAt)
-    const postTimestamp = postCreatedAt.getTime()
-    const timeNow = new Date().getTime()
+    return (
+        <div className='shadow-md bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md p-4'>
 
-    const diff = (timeNow - postTimestamp) / 1000;
+            <PostImage images={post.images} />
 
-    let resultTimeString = ''
+            <div className='flex items-center justify-between mt-4'>
+                <div className='flex items-center gap-2'>
+                    <Image src={post.user.avatar} className='w-11 h-11 rounded-full object-center object-cover bg-slate-400 dark:bg-slate-700' unoptimized width={44} height={44} alt='Post'/>
+                    <span className='text-xs text-slate-900 dark:text-slate-200'>{post.user.firstName} {post.user.lastName}</span>
+                </div>
+                <span className='text-xs text-slate-900 dark:text-slate-200'>{getTimeString(post.createdAt)}</span>
+            </div>
+        </div>
+    );
+}
+
+
+function getTimeString(createdAt) {
+    const postCreatedAt = new Date(createdAt);
+    const postTimestamp = postCreatedAt.getTime();
+    const timeNow = new Date().getTime();
+
+    const diff = (timeNow - postTimestamp) / 1000; // в сек.
+
+    let resultTimeString = 'неизвестно';
 
     if (diff < 60) {
         resultTimeString = 'Только что'
@@ -18,56 +36,13 @@ export default function Post({ post }) {
         resultTimeString = `${Math.round(diff / 60)} мин. назад`
     } else if (diff >= 3600 && diff < 86400) {
         resultTimeString = `${Math.round(diff / 3600)} ч. назад`
-    } else if (diff >= 3600 && diff < 259200) {
-        let temp = Math.round(diff / 86400)
-        resultTimeString = temp === 1 ? `${temp} день назад` : `${temp} дня назад`
+    } else if (diff >= 86400 && diff < 259200) {
+        let temp = Math.round(diff / 86400);
+        resultTimeString = temp === 1 ? `${temp} день назад` : `${temp} дня назад`;
     } else {
-        let year = postCreatedAt.getFullYear()
-        let day = postCreatedAt.getDay()
-        if (day > 0 && day < 10) {
-            day = `0${day}`
-        }
-        let hour = postCreatedAt.getHours()
-        let minute = postCreatedAt.getMinutes()
-        let month = "янв,фев,мар,апр,май,июн,июл,авг,сен,окт,ноя,дек"
-        .split(",")[postCreatedAt.getUTCMonth()];
-
-        resultTimeString = `${year}-${month}-${day} ${hour}:${minute}`
+        let months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+        resultTimeString = `${postCreatedAt.getDate()} ${months[postCreatedAt.getMonth()]} ${postCreatedAt.getFullYear()} ${postCreatedAt.getHours()}:${postCreatedAt.getMinutes()}`;
     }
 
-    if (post.images.length > 1) {
-
-    }
-
-    const imageStyle = {
-        borderRadius: '50%',
-        border: '1px solid #7c3aed',
-        objectPostition: 'center',
-        objectFit: 'cover'
-    }
-
-    const imageLoader = ({ src, width, quality }) => {
-        return `${src}`
-    }
-    
-  return (
-    <div className='w-full h-full' >
-        <div className='h-4/5 overflow-hidden'>
-            <PostImage images={post.images}/>
-        </div>
-        
-        <div className='flex items-center justify-between p-2 border-b dark:border-indigo-500 border-slate-100 dark:border-opacity-50'>
-            <div className='flex items-center gap-2 '>
-                <Image className='' src={post.user.avatar} loader={imageLoader} style={imageStyle} width={42} height={42} alt='Avatar'></Image>
-                <span className=''>{post.user.firstName}</span>
-                <hr className='dark:bg-indigo-500 bg-slate-100'/>
-            </div>
-            
-            <span className='text-sm'>{resultTimeString}</span>
-        </div>
-    </div>
-  )
+    return resultTimeString;
 }
-
-
-  

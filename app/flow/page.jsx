@@ -139,9 +139,8 @@ export default function Flow() {
   ]
 
   return (
-    <div className='squareGrid2'>
-      {posts.map(post => <Post key={post.id} post={post} />)}
-
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full p-4 gap-4 sm:p-8 sm:gap-8 lg:p-12 lg:gap-12'>
+        {posts.map( post => <Post key={post.id} post={post}/> )}
     </div>
   )
 }
