@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const MAX_COUNT = 10;
 
@@ -7,7 +7,12 @@ export default function Create() {
 
     const [uploadedFiles, setUploadedFiles] = useState([])
     const [description, setDescription] = useState('')
-    const [fileLimit, setFileLimit] = useState(false);
+    const [fileLimit, setFileLimit] = useState(false) 
+    const filePicker = useRef(null)
+
+    const handlePick = () => {
+        filePicker.current.click();
+    }
 
     const handleUploadFiles = files => {
         const uploaded = [...uploadedFiles];
@@ -33,7 +38,7 @@ export default function Create() {
 
     const handleDescription = (e) => {
         setDescription(e.target.value.slice(0, 255))
-    
+
     }
 
     const handleFileEvent = (e) => {
@@ -52,14 +57,23 @@ export default function Create() {
     return (
         <div className='grid grid-cols-1 w-full p-4 gap-4'>
             <form className='grid mt-4 gap-4'>
-                <input className='bg-slate-300 dark:bg-slate-700 text-black dark:text-white py-2 px-4 rounded-md'
+                <button
+                    className='bg-gradient-to-r from-amber-500 dark:from-purple-600 from-0% via-orange-600 dark:via-cyan-600 via-30% via-pink-500 dark:via-blue-500 via-60% to-fuchsia-700 dark:to-violet-700 to-100% text-white text-lg py-2 px-4 rounded-md'
+                    onClick={handlePick}
+                >Выбрать файлы
+                </button>
+                <input className='bg-slate-300 dark:bg-slate-700 text-black dark:text-white py-2 px-4 rounded-md opacity-0 w-0 h-0 m-0 gap-0 p-0 overflow-hidden leading-0'
                     type='file'
+                    ref={filePicker}
                     multiple
                     accept='image/jpg, image/png, image/jpeg, image/gif'
                     onChange={handleFileEvent}
                     disabled={fileLimit}
                     name="gallery"
                 />
+
+
+
                 <div className='min-h-[100px] flex flex-wrap  gap-4 items-center justify-center bg-slate-300 dark:bg-slate-700 text-black dark:text-white p-4 rounded-md border-2 border-dashed border-slate-600 dark:border-slate-400'>
                     {
                         uploadedFiles.length > 0 ? (
@@ -69,7 +83,7 @@ export default function Create() {
                         )
                     }
                 </div>
-                
+
                 <div className='w-full relative'>
                     <textarea className='w-full bg-slate-300 dark:bg-slate-700 text-black dark:text-white py-2 px-4 pr-24 rounded-md'
                         value={description}
