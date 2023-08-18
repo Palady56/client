@@ -8,6 +8,7 @@ export default function Create() {
 
     const galleryRef = useRef(null)
 
+    const [showDropMessage, setShowDropMessage] = useState(true);
     const [drag, setDrag] = useState(false)
     const [uploadedFiles, setUploadedFiles] = useState([])
     const [description, setDescription] = useState('')
@@ -24,12 +25,18 @@ export default function Create() {
 
     const dragStartHandler = (e) => {
         e.preventDefault()
-        setDrag(true)
+        if (!drag) {
+            setDrag(true)
+            setShowDropMessage(false)
+        }
     }
 
     const dragLeaveHandler = (e) => {
         e.preventDefault()
-        setDrag(false)
+        if (drag) {
+            setDrag(false)
+            setShowDropMessage(true)
+        }
     }
 
     const onDropHandler = (e) => {
@@ -94,7 +101,8 @@ export default function Create() {
                                     border-slate-400 dark:border-slate-600'
                     >
                         {
-                            drag
+                            drag 
+
                                 ? <div
                                     className='flex items-center justify-center min-h-[100px] w-full'
                                     onDragStart={e => dragStartHandler(e)}
@@ -103,13 +111,15 @@ export default function Create() {
                                     onDrop={e => onDropHandler(e)}
                                 >
                                     Отпустите файлы для загрузки</div>
-                                : <div
+
+                               : showDropMessage && (<div
                                     className='flex items-center justify-center min-h-[100px] w-full'
                                     onDragStart={e => dragStartHandler(e)}
                                     onDragLeave={e => dragLeaveHandler(e)}
                                     onDragOver={e => dragStartHandler(e)}
                                 >
                                     Выберите или перетащите файлы для загрузки</div>
+                               )
                         }
 
                         <PreviewImage />
