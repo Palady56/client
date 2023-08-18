@@ -42,8 +42,12 @@ export default function Create() {
     const onDropHandler = (e) => {
         e.preventDefault()
         let files = [...e.dataTransfer.files]
-        setUploadedFiles(files)
-        setDrag(false)
+        if (files < MAX_COUNT) {
+            setUploadedFiles(files)
+            setDrag(false)
+        } else {
+            alert('Превышен лимит файлов. Максимум 10 файлов!')
+        }
     }
 
     const PreviewImage = useCallback(() => {
@@ -101,7 +105,7 @@ export default function Create() {
                                     border-slate-400 dark:border-slate-600'
                     >
                         {
-                            drag 
+                            drag
 
                                 ? <div
                                     className='flex items-center justify-center min-h-[100px] w-full'
@@ -112,14 +116,14 @@ export default function Create() {
                                 >
                                     Отпустите файлы для загрузки</div>
 
-                               : showDropMessage && (<div
+                                : showDropMessage && (<div
                                     className='flex items-center justify-center min-h-[100px] w-full'
                                     onDragStart={e => dragStartHandler(e)}
                                     onDragLeave={e => dragLeaveHandler(e)}
                                     onDragOver={e => dragStartHandler(e)}
                                 >
                                     Выберите или перетащите файлы для загрузки</div>
-                               )
+                                )
                         }
 
                         <PreviewImage />
