@@ -1,9 +1,6 @@
 'use client'
 import { useState, useRef } from 'react';
-<<<<<<< HEAD
 import { PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline'
-=======
->>>>>>> 2d3bc91eb421dd2f58d449fddb3b86d245de4d3b
 
 const MAX_COUNT = 10;
 
@@ -11,12 +8,7 @@ export default function Create() {
 
     const [uploadedFiles, setUploadedFiles] = useState([])
     const [description, setDescription] = useState('')
-    const [fileLimit, setFileLimit] = useState(false) 
-    const filePicker = useRef(null)
-
-    const handlePick = () => {
-        filePicker.current.click();
-    }
+    const [fileLimit, setFileLimit] = useState(false);
 
     const filePicker = useRef(null)
 
@@ -24,34 +16,30 @@ export default function Create() {
         filePicker.current.click();
     }
 
-    // const handleUploadFiles = files => {
-    //     const uploaded = [...uploadedFiles];
-    //     let limitExceeded = false;
-    //     files.some((file) => {
-    //         if (uploaded.findIndex((f) => f.name === file.name) === -1) {
-    //             uploaded.push(file);
-    //             if (uploaded.length >= MAX_COUNT) setFileLimit(true);
-    //             if (uploaded.length > MAX_COUNT) {
-    //                 setUploadedFiles([])
-    //                 alert(`You can only add a maximum of ${MAX_COUNT} files`);
-    //                 setFileLimit(false)
-    //                 limitExceeded = true;
-    //                 return limitExceeded;
-    //             }
-    //         }
-    //     })
+    const handleUploadFiles = files => {
+        const uploaded = [...uploadedFiles];
+        let limitExceeded = false;
+        files.some((file) => {
+            if (uploaded.findIndex((f) => f.name === file.name) === -1) {
+                uploaded.push(file);
+                if (uploaded.length >= MAX_COUNT) setFileLimit(true);
+                if (uploaded.length > MAX_COUNT) {
+                    setUploadedFiles([])
+                    alert(`You can only add a maximum of ${MAX_COUNT} files`);
+                    setFileLimit(false)
+                    limitExceeded = true;
+                    return limitExceeded;
+                }
+            }
+        })
 
-    //     if (!limitExceeded) setUploadedFiles(uploaded)
+        if (!limitExceeded) setUploadedFiles(uploaded)
 
-    //     return limitExceeded
-    // }
+        return limitExceeded
+    }
 
     const handleDescription = (e) => {
         setDescription(e.target.value.slice(0, 255))
-<<<<<<< HEAD
-=======
-
->>>>>>> 2d3bc91eb421dd2f58d449fddb3b86d245de4d3b
     }
 
     // const handleFileEvent = (e) => {
@@ -111,7 +99,6 @@ export default function Create() {
     return (
         <div className='grid grid-cols-1 w-full p-4 gap-4'>
             <form className='grid mt-4 gap-4'>
-<<<<<<< HEAD
                 <div className='grid md:flex gap-6'>
                     <button
                         className='flex items-center justify-center gap-4 bg-gradient-to-r \
@@ -138,36 +125,12 @@ export default function Create() {
                     onChange={handleAddFiles}
                     ref={filePicker}
                     hidden='hidden'
-=======
-                <button
-                    className='bg-gradient-to-r from-amber-500 dark:from-purple-600 from-0% via-orange-600 dark:via-cyan-600 via-30% via-pink-500 dark:via-blue-500 via-60% to-fuchsia-700 dark:to-violet-700 to-100% text-white text-lg py-2 px-4 rounded-md'
-                    onClick={handlePick}
-                >Выбрать файлы
-                </button>
-                <input className='bg-slate-300 dark:bg-slate-700 text-black dark:text-white py-2 px-4 rounded-md opacity-0 w-0 h-0 m-0 gap-0 p-0 overflow-hidden leading-0'
-                    type='file'
-                    ref={filePicker}
->>>>>>> 2d3bc91eb421dd2f58d449fddb3b86d245de4d3b
                     multiple
                     accept='image/jpg, image/png, image/jpeg, image/gif'
                     name="gallery"
                 />
 
 
-<<<<<<< HEAD
-=======
-
-                <div className='min-h-[100px] flex flex-wrap  gap-4 items-center justify-center bg-slate-300 dark:bg-slate-700 text-black dark:text-white p-4 rounded-md border-2 border-dashed border-slate-600 dark:border-slate-400'>
-                    {
-                        uploadedFiles.length > 0 ? (
-                            uploadedFiles.map((file, index) => (<img key={index} src={URL.createObjectURL(file)} className='rounded-md h-16 w-16 object-cover object-center' />))
-                        ) : (
-                            <span>Выберите файлы</span>
-                        )
-                    }
-                </div>
-
->>>>>>> 2d3bc91eb421dd2f58d449fddb3b86d245de4d3b
                 <div className='w-full relative'>
                     <textarea className='w-full bg-slate-300 dark:bg-slate-700 text-black dark:text-white py-2 px-4 pr-24 rounded-md'
                         value={description}
