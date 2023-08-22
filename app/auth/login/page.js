@@ -38,7 +38,7 @@ export default function Registration() {
               from-amber-500 from-0% via-orange-600 via-30% via-pink-500 via-60% to-fuchsia-700 to-100% mt-4 rounded-md py-2 px-4'>Войти</button>          
             </form>
             <div className='flex justify-center mt-6 w-full border-b-2 border-slate-300 dark:border-indigo-500'>
-              <span className='bg-white dark:bg-slate-800 p-2 -mb-[20px]'>OR</span>
+              <span className='bg-white text-black dark:text-white dark:bg-slate-800 p-2 -mb-[20px]'>OR</span>
             </div>
             <button type='submit' className='flex w-full hover:animate-pulse px-2 py-3 rounded-md justify-center items-center gap-2 mt-8 border border-blue-500 text-blue-500'>
               <Image

@@ -27,15 +27,6 @@ export default function Changepassword() {
       }
 
       const response = { success: true, message: 'Пароль изменен' }; 
-<<<<<<< HEAD
-=======
-
-      // if (response.success) {
-      // setSuccessModal(response.message);
-      // } else {
-      // setError(response.message);
-      // }
->>>>>>> 9485cd92338ef05687ee8404dfd4ba16122aebd1
         
     }
 
@@ -102,9 +93,9 @@ export default function Changepassword() {
       }
     </div>
   )
-<<<<<<< HEAD
-}
-=======
+
 }
 
->>>>>>> 9485cd92338ef05687ee8404dfd4ba16122aebd1
+
+
+
