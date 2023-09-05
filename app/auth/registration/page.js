@@ -7,6 +7,7 @@ import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { data } from 'autoprefixer';
+import { getSession } from 'next-auth/react';
 
 export default function Registration() {
 
@@ -41,11 +42,13 @@ export default function Registration() {
     e.preventDefault()
     setLoading(true)
 
+    // token = getSession('token')
     const res = await fetch('/back/api/v1/register', {
       method: 'POST',
       headers: {
         "Content-type": "application/json",
         "Accept": "application/json",
+        // "Authorizarion" : token
       },
       body: JSON.stringify({
         firstName,

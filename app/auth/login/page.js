@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { useState } from 'react'
 
 export default function Login() {

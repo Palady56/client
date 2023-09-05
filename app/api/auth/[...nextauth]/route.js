@@ -11,7 +11,6 @@ export const authOptions = {
     providers: [
         CredentialsProvider({
             name: "Credentials",
-            id: "credentials",
             async authorize(credentials, req) {
 
                 const res = await fetch(`${process.env.URL_INTERNAL}/back/api/v1/login`, {
@@ -26,13 +25,20 @@ export const authOptions = {
                     }),
                 })
 
-                if (res.status >= 400) {
-                    return null
-                }
-
+                if (res.status !== 200) return null
                 const user = await res.json()
 
-                return user
+                if (user) {
+                    return {
+                        email: user.email,
+                        name: user.firstName + ' ' + user.lastName,
+                        image: user.avatar,
+                        token: user.token,
+                        jti: user.jti
+                    }
+                } else {
+                    return null
+                }
             },
         }),
 
@@ -44,10 +50,19 @@ export const authOptions = {
     ],
     callbacks: {
         async jwt({token, user}) {
+            console.log('********************');
+            console.log('token ' + token)
+            console.log('user ' + user);
+            console.log('********************');
             return { ...token, ...user }
         },
         async session ({ session, token, user }) {
             session.user = token
+            console.log('********************');
+            console.log('session '  + session)
+            console.log('token ' + token)
+            console.log('user ' + user);
+            console.log('********************');
             return session
         },
     },  
