@@ -63,6 +63,7 @@ export const authOptions = {
             console.log('token ' + token)
             console.log('user ' + user);
             console.log('********************');
+            session.user = token
             return session
         },
     },  
