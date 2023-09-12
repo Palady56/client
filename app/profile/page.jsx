@@ -153,45 +153,39 @@ export default function Profile() {
     }
 
     const handleAvatar = async (e) => {
-        e.preventDefault()
         setAvatar(e.target.files[0])
-        let formdata = new FormData()
-        formdata.append("avatar", e.target.files[0])
 
-        const res1 = await fetch("/back/api/v1/user/avatar", {
-            method: 'DELETE',
+        let formdata = new FormData();
+        formdata.append("avatar", e.target.files[0]);
+        await fetch('/back/api/v1/user/avatar', {
+            method: "DELETE",
             headers: {
-                Authorization: token,
+                Authorization: token
             }
         })
-
-        const res2 = await fetch("/back/api/v1/user/avatar", {
-            method: 'POST',
+        await fetch('/back/api/v1/user/avatar', {
+            method: "POST",
             headers: {
-                Authorization: token,
+                Authorization: token
             },
-            body: formdata
+            body: formdata,
         })
-
-        if (res2.status >= 500) {
-            setErrMessage('Извините, сервис недоступен. Повторите попытку позже...')
-            return
-        }
-
-        const data = await res2.json()
-
-        update({user: {image: e.target.files[0]}})
+        session.user.image = URL.createObjectURL(e.target.files[0])
+        update()
     }
+
 
     return (
         <>
-            {loading ?
-                <div className='bg-[#0000002d] backdrop-blur-sm p-12 z-[110] absolute top-0 right-0 bottom-0 left-0 flex justify-center items-center'>
+            {status === "loading" ?
+                <div className='bg-[#0000003d] backdrop-blur-sm z-[110] p-12 absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center'>
                     <span className='p-6 rounded-md bg-white'>
                         <ArrowPathIcon className='h-10 w-10 animate-spin' />
                     </span>
-                </div> 
-                : ''
+
+                </div>
+                :
+                ''
             }
             {/* Создать в компоненте */}
             {succesful ?

@@ -4,6 +4,15 @@ import PostImage from './postImage'
 
 export default function Post({ post }) {
 
+    let des = post.description !== "null" ? post.description : "Описание отсутствует..."
+
+    if (des.length > 100) {
+        des = des.slice(0, 97) + "..."
+    }
+    des = des.slice(0, 100)
+    
+
+
     return (
         <div className='shadow-md bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md p-4'>
 
@@ -15,6 +24,9 @@ export default function Post({ post }) {
                     <span className='text-xs text-slate-900 dark:text-slate-200'>{post.user.firstName} {post.user.lastName}</span>
                 </div>
                 <span className='text-xs text-slate-900 dark:text-slate-200'>{getTimeString(post.createdAt)}</span>
+            </div>
+            <div className='flex flex-wrap overflow-hidden items-center mt-4 dark:text-slate-200'>
+                {des}
             </div>
         </div>
     );

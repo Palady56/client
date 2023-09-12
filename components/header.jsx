@@ -15,8 +15,8 @@ export default function Header({ children }) {
     const avatar = session?.user?.image
 
     return (
-        <div className='cursor-pointer w-full fixed shadow-md top-0 left-0 right-0 z-50 bg-[#ffffffbd] dark:bg-[#1e293be0] backdrop-blur-sm flex justify-between h-16 py-1 px-4 border-b border-slate-300 dark:border-slate-700'>
-            <div onClick={() => router.push("/flow")} className='flex items-center gap-2'>
+        <div className='w-full fixed shadow-md top-0 left-0 right-0 z-50 bg-[#ffffffbd] dark:bg-[#1e293be0] backdrop-blur-sm flex justify-between h-16 py-1 px-4 border-b border-slate-300 dark:border-slate-700'>
+            <div onClick={() => router.push("/flow")} className='flex cursor-pointer items-center gap-2'>
                 <Image
                     src="/images/logo.svg"
                     alt="Logo"
